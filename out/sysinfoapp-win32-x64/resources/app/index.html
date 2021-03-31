@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>sysinfo</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="output"></div>
+    </div>
+</body>
+<script>
+var versions = process.versions; 
+  console.log("node version: " + versions.node); 
+  console.log("openssl version: " + versions.openssl); 
+  console.log("module versions: " + versions.modules); 
+console.log(process);
+    let output = `
+        <h1><span class="badge badge-secondary">System Info</span></h1>
+        <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 99%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">System Architecture: ${process.arch}</li>
+            <li class="list-group-item">debugport: ${process.debugPort}</li>
+            <li class="list-group-item">cpuusage: ${process.getCPUUsage().idleWakeupsPerSecond}</li>
+
+            <li class="list-group-item">Process Type: ${process.type}</li>
+            <li class="list-group-item">Total Memory: ${process.getSystemMemoryInfo().total}</li>
+            <li class="list-group-item">Free Memory: ${process.getSystemMemoryInfo().free}</li>
+            <li class="list-group-item">Computer Name: ${process.env.USERDOMAIN}</li>
+            <li class="list-group-item">User Name: ${process.env.USER}</li>
+            <li class="list-group-item">User Home Path: ${process.env.HOME}</li>
+            <li class="list-group-item">System Root: ${process.env.SYSTEMROOT}</li>
+            <li class="list-group-item">System Drive: ${process.env.SYSTEMDRIVE}</li>
+            <li class="list-group-item-warning">Module Version: ${versions.modules}</li>
+        </ul>
+    `;
+    document.getElementById('output').innerHTML = output;
+</script>
+<script>
+    require('./renderer.js');
+</script>
+
+</html>
